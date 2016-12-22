@@ -20,7 +20,14 @@ $ npm install --save es-bulk-update-builder
 
 ## Usage
 
-TODO
+```js
+const BulkUpdateBuilder = require('es-bulk-update-builder');
+
+const result = new BulkUpdateBuilder()
+    .index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id', 3)
+    .index({ name: 'other-doc' }, 'other-index', 'other-type', 'other-id', 4)
+    .build();
+```
 
 ## License
 
