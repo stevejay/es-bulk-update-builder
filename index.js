@@ -29,10 +29,6 @@ class BulkUpdateBuilder {
         return this.body;
     }
 
-    execute() {
-        return this.elasticsearchClient.bulk({ body: this.body });
-    }
-
     _createMetadata(index, type, id, version) {
         const metadata = {
             _index: index,
