@@ -23,10 +23,13 @@ $ npm install --save es-bulk-update-builder
 ```js
 const BulkUpdateBuilder = require('es-bulk-update-builder');
 
-const result = new BulkUpdateBuilder()
+const body = new BulkUpdateBuilder()
     .index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id', 3)
     .index({ name: 'other-doc' }, 'other-index', 'other-type', 'other-id', 4)
     .build();
+
+// body can then be passed to the JavaScript elasticsearch client:
+// client.bulk({ body: body });
 ```
 
 ## License
