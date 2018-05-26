@@ -29,7 +29,7 @@ class BulkUpdateBuilder {
         return this.body;
     }
 
-    _createMetadata(index, type, id, version, versionType='external') {
+    _createMetadata(index, type, id, version, versionType) {
         const metadata = {
             _index: index,
             _type: type,
@@ -38,7 +38,7 @@ class BulkUpdateBuilder {
 
         if (version) {
             metadata._version = version;
-            metadata._version_type = versionType;
+            metadata._version_type = versionType || 'external';
         }
 
         return metadata;
