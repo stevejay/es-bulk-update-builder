@@ -2,9 +2,9 @@
   "name": "es-bulk-update-builder",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stevejay/es-search-builder"
+    "url": "https://github.com/stevejay/es-bulk-update-builder"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "engines": {
     "node": ">=4.3"
   },
