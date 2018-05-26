@@ -11,7 +11,7 @@
   "description": "Bulk update request body builder for Elasticsearch",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --recursive",
+    "test": "cross-env NODE_ENV=test mocha --recursive",
     "posttest": "npm run lint",
     "lint": "eslint .",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
@@ -23,16 +23,18 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "^2.11.15",
-    "eslint": "^3.12.2",
+    "coveralls": "^3.0.1",
+    "cross-env": "^5.1.6",
+    "eslint": "^4.19.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
+    "mocha": "^5.2.0",
     "mocha-lcov-reporter": "^1.2.0",
-    "should": "^11.1.2"
+    "should": "^13.2.1"
   },
   "keywords": [
     "elasticsearch",
     "bulk",
     "update"
-  ]
+  ],
+  "dependencies": {}
 }
