@@ -32,6 +32,28 @@ describe('es-bulk-update-builder', function() {
         ]);
     });
 
+    it('should build a bulk update with one index that has a version and version type', function() {
+        const subject = new BulkUpdateBuilder();
+        subject.index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id', 3, 'external_gt');
+
+        const result = subject.build();
+
+        should(result).eql([
+            {
+                index: {
+                    _index: 'some-index',
+                    _type: 'some-type',
+                    _id: 'some-id',
+                    _version: 3,
+                    _version_type: 'external_gt'
+                }
+            },
+            {
+                name: 'my-doc'
+            }
+        ]);
+    });
+
     it('should build a bulk update with one index that has no version', function() {
         const subject = new BulkUpdateBuilder();
         subject.index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id');
@@ -74,6 +96,28 @@ describe('es-bulk-update-builder', function() {
         ]);
     });
 
+    it('should build a bulk update with one update that has a version and version type', function() {
+        const subject = new BulkUpdateBuilder();
+        subject.update({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id', 3, 'external_gt');
+
+        const result = subject.build();
+
+        should(result).eql([
+            {
+                update: {
+                    _index: 'some-index',
+                    _type: 'some-type',
+                    _id: 'some-id',
+                    _version: 3,
+                    _version_type: 'external_gt'
+                }
+            },
+            {
+                name: 'my-doc'
+            }
+        ]);
+    });
+
     it('should build a bulk update with one update that has no version', function() {
         const subject = new BulkUpdateBuilder();
         subject.update({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id');
@@ -108,6 +152,25 @@ describe('es-bulk-update-builder', function() {
                     _id: 'some-id',
                     _version: 3,
                     _version_type: 'external'
+                }
+            }
+        ]);
+    });
+
+    it('should build a bulk update with one delete that has a version and version type', function() {
+        const subject = new BulkUpdateBuilder();
+        subject.delete('some-index', 'some-type', 'some-id', 3, 'external_gt');
+
+        const result = subject.build();
+
+        should(result).eql([
+            {
+                delete: {
+                    _index: 'some-index',
+                    _type: 'some-type',
+                    _id: 'some-id',
+                    _version: 3,
+                    _version_type: 'external_gt'
                 }
             }
         ]);

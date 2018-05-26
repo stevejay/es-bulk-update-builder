@@ -5,22 +5,22 @@ class BulkUpdateBuilder {
         this.body = [];
     }
 
-    index(document, index, type, id, version) {
-        const metadata = this._createMetadata(index, type, id, version);
+    index(document, index, type, id, version, versionType) {
+        const metadata = this._createMetadata(index, type, id, version, versionType);
         this.body.push({ index: metadata });
         this.body.push(document);
         return this;
     }
 
-    update(document, index, type, id, version) {
-        const metadata = this._createMetadata(index, type, id, version);
+    update(document, index, type, id, version, versionType) {
+        const metadata = this._createMetadata(index, type, id, version, versionType);
         this.body.push({ update: metadata });
         this.body.push(document);
         return this;
     }
 
-    delete(index, type, id, version) {
-        const metadata = this._createMetadata(index, type, id, version);
+    delete(index, type, id, version, versionType) {
+        const metadata = this._createMetadata(index, type, id, version, versionType);
         this.body.push({ delete: metadata });
         return this;
     }
@@ -29,7 +29,7 @@ class BulkUpdateBuilder {
         return this.body;
     }
 
-    _createMetadata(index, type, id, version) {
+    _createMetadata(index, type, id, version, versionType='external') {
         const metadata = {
             _index: index,
             _type: type,
@@ -38,7 +38,7 @@ class BulkUpdateBuilder {
 
         if (version) {
             metadata._version = version;
-            metadata._version_type = 'external';
+            metadata._version_type = versionType;
         }
 
         return metadata;

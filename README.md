@@ -20,18 +20,44 @@ $ npm install --save es-bulk-update-builder
 
 ## Usage
 
+Usage is basically as follows:
+
 ```js
 const BulkUpdateBuilder = require('es-bulk-update-builder');
 
 const body = new BulkUpdateBuilder()
     .index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id', 3)
-    .index({ name: 'other-doc' }, 'other-index', 'other-type', 'other-id', 4)
+    .update({ name: 'other-doc' }, 'other-index', 'other-type', 'other-id', 4)
+    .delete('another-index', 'another-type', 'another-id', 5)
     .build();
 
-// body can then be passed to the JavaScript elasticsearch client:
+// The body variable can now be passed to the JavaScript elasticsearch client, e.g.:
 // client.bulk({ body: body });
+```
+
+The `index` method is for adding a document, the `update` method is for updating a document, and the `delete` method is for deleting a document.
+
+For each action you can specify a version number, for example `3` in the following example:
+
+```js
+const body = new BulkUpdateBuilder()
+    .index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id', 3);
+```
+
+If you do specify a version, the [version type](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html#_version_types) is set to `external`. You can override that by specifying the desired version type, which in the following example is `external_gte`:
+
+```js
+const body = new BulkUpdateBuilder()
+    .index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id', 3, 'external_gte');
+```
+
+To specify no versioning information, simply omit it:
+
+```js
+const body = new BulkUpdateBuilder()
+    .index({ name: 'my-doc' }, 'some-index', 'some-type', 'some-id');
 ```
 
 ## License
 
-MIT
+[MIT](LICENSE)
